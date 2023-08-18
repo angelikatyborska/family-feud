@@ -12,7 +12,7 @@
   }
 
   $: canRecordMiss = canAddMiss($gameState, team.number)
-  $: [canAwardRound, _] = canFinalizeRound($gameState)
+  $: [canAwardRound, ] = canFinalizeRound($gameState)
 </script>
 
 <div class:team={true} class:team-1={team.number === 1} class:team-2={team.number === 2}>
@@ -45,11 +45,13 @@
 
 <style>
   .team-1 {
+    --text-color: var(--team-1-dark);
     --team-dark: var(--team-1-dark);
     --team-light: var(--team-1-light);
   }
 
   .team-2 {
+    --text-color: var(--team-2-dark);
     --team-dark: var(--team-2-dark);
     --team-light: var(--team-2-light);
   }

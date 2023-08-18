@@ -34,12 +34,16 @@
     {/each}
     </thead>
   </table>
-  <p class="round-type">
-    {currentRound.type}
-  </p>
-  <p class="round-points">
-    Score: {$gameState.currentRoundScore}
-  </p>
+  <footer>
+    <div class="round-type">
+      <span>Round Type:</span>
+      <span>{currentRound.type}</span>
+    </div>
+    <div class="round-score">
+      <span>Round Score:</span>
+      <span>{$gameState.currentRoundScore}</span>
+    </div>
+  </footer>
 </div>
 
 <style>
@@ -141,5 +145,28 @@
 
   .answer-action {
     width: 4em;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 3px solid var(--text-color);
+    padding: var(--margin-s) var(--margin-m);
+  }
+
+  .round-type, .round-score {
+    display: flex;
+    gap: var(--margin-s);
+    text-transform: capitalize;
+    justify-items: flex-end;
+    align-items: center;
+  }
+
+  .round-type > *:first-child, .round-score > *:first-child {
+    font-weight: bold;
+  }
+
+  .round-score > *:nth-child(2) {
+    font-size: var(--font-size-l)
   }
 </style>

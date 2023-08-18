@@ -54,5 +54,21 @@
     box-sizing: border-box;
   }
 
+  :global(button) {
+    color: var(--text-color);
+    background-color: var(--background-color);
+    padding: var(--margin-xs) var(--margin-s);
+    border: 3px solid var(--text-color);
+  }
+
+  :global(button:hover:not(:disabled)) {
+    background-color: var(--background-color2);
+    cursor: pointer;
+  }
+
+  :global(button:disabled) {
+    opacity: 0.3;
+  }
+
 
 </style>
