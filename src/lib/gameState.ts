@@ -1,4 +1,4 @@
-import type { Team, TeamNumber } from '$lib/gameData/gameState/team';
+import type { Team, TeamNumber } from '$lib/gameState/team';
 import type { GameData } from '$lib/gameData';
 import type { Round, RoundNumber } from '$lib/gameData/round';
 import type { AnswerId } from '$lib/gameData/answer';
@@ -15,11 +15,15 @@ export interface GameState {
 export function createGame(): GameState {
 	return {
 		team1: {
+			number: 1,
+			name: 'Team 1',
 			members: ['Michał', 'Luisa'],
 			points: 0,
 			misses: 0
 		},
 		team2: {
+			number: 2,
+			name: 'Team 2',
 			members: ['James', 'Claudine', 'Jeremie'],
 			points: 0,
 			misses: 0
@@ -62,7 +66,7 @@ export function getCurrentRound(gameState: GameState): Round {
 	}
 }
 
-function scoreAnswer(round: Round, answerId: AnswerId): number {
+export function scoreAnswer(round: Round, answerId: AnswerId): number {
 	const answer = round.question.answers.find((answer) => answer.id == answerId);
 	if (!answer) {
 		throw 'invalid answer id for this round';
