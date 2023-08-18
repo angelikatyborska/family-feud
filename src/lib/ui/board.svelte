@@ -26,7 +26,11 @@
         <td class="answer-text answer-secret">{answer.text}</td>
         <td class="answer-resp answer-secret">{answer.respondentCount}</td>
         <td class="answer-score answer-secret">{scoreAnswer(currentRound, answer.id)}</td>
-        <td class="answer-action"><button on:click={onClickReveal(answer.id)}>Reveal</button></td>
+        <td class="answer-action">
+          {#if !$gameState.revealedAnswers.includes(answer.id)}
+            <button on:click={() => onClickReveal(answer.id)}>Reveal</button>
+          {/if}
+        </td>
       </tr>
     {/each}
     </thead>
@@ -72,6 +76,7 @@
   .answer td {
     --padding: var(--margin-xs);
     padding: var(--padding);
+    height: 2em;
   }
 
   .answer.hidden td {
@@ -81,10 +86,14 @@
   .answer.hidden td.answer-secret:before {
     content: '???';
     position: absolute;
-    top: var(--padding);
+    top: 50%;
     right: var(--padding);
-    bottom: var(--padding);
     left: var(--padding);
+    transform: translateY(-50%);
     background-color: inherit;
+  }
+
+  .answer-action {
+    width: 4em;
   }
 </style>

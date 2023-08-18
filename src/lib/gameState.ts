@@ -3,6 +3,12 @@ import type { GameData } from '$lib/gameData';
 import type { Round, RoundNumber } from '$lib/gameData/round';
 import type { AnswerId } from '$lib/gameData/answer';
 
+import michalImage from '$lib/ui/assets/michal.png'
+import luisaImage from '$lib/ui/assets/luisa.jpg'
+import jamesImage from '$lib/ui/assets/james.png'
+import claudineImage from '$lib/ui/assets/claudine.jpg'
+import jeremieImage from '$lib/ui/assets/jeremie.jpg'
+
 export interface GameState {
 	team1: Team;
 	team2: Team;
@@ -16,17 +22,24 @@ export function createGame(): GameState {
 	return {
 		team1: {
 			number: 1,
-			name: 'Team 1',
-			members: ['Michał', 'Luisa'],
+			name: 'Magenta Mongoose',
+			members: [
+				{name: 'Michał', image: michalImage},
+				{name: 'Luisa', image: luisaImage}
+			],
 			points: 0,
 			misses: 0
 		},
 		team2: {
 			number: 2,
-			name: 'Team 2',
-			members: ['James', 'Claudine', 'Jeremie'],
-			points: 0,
-			misses: 0
+			name: 'Sapphire Spider',
+			members: [
+				{name: 'James', image: jamesImage},
+				{name: 'Claudine', image: claudineImage},
+				{name: 'Jeremie', image: jeremieImage}
+			],
+			points: 315,
+			misses: 2
 		},
 		currentRoundNumber: 1,
 		currentRoundScore: 0,
@@ -181,12 +194,17 @@ export function finalizeRound(gameState: GameState, awardPointsTo: TeamNumber): 
 			};
 		}
 
-		return {
-			...gameState,
-			currentRoundScore: 0,
-			revealedAnswers: [],
-			currentRoundNumber: gameState.currentRoundNumber + 1
-		};
+		if ( gameState.currentRoundNumber == gameState.gameData.rounds.length ) {
+			// game over
+			return gameState
+		} else {
+			return {
+				...gameState,
+				currentRoundScore: 0,
+				revealedAnswers: [],
+				currentRoundNumber: gameState.currentRoundNumber + 1
+			};
+		}
 	} else throw reason;
 }
 
