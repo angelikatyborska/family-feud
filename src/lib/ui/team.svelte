@@ -1,7 +1,7 @@
 <script>
   export let team
   import gameState from '$lib/ui/store.ts';
-  import {addMiss, finalizeRound} from '$lib/gameState'
+  import {addMiss, canAddMiss, canFinalizeRound, finalizeRound} from '$lib/gameState'
 
   const onRecordMissClick = () => {
     $gameState = addMiss($gameState, team.number)
@@ -10,6 +10,9 @@
   const onAwardRoundClick = () => {
     $gameState = finalizeRound($gameState, team.number)
   }
+
+  $: canRecordMiss = canAddMiss($gameState, team.number)
+  $: [canAwardRound, _] = canFinalizeRound($gameState)
 </script>
 
 <div class:team={true} class:team-1={team.number === 1} class:team-2={team.number === 2}>
@@ -35,8 +38,8 @@
     {/each}
   </div>
   <div class="team-actions">
-    <button on:click={onRecordMissClick}>Record Miss</button>
-    <button on:click={onAwardRoundClick}>Award Round</button>
+    <button on:click={onRecordMissClick} disabled={!canRecordMiss}>Record Miss</button>
+    <button on:click={onAwardRoundClick} disabled={!canAwardRound}>Award Round</button>
   </div>
 </div>
 

@@ -1,15 +1,16 @@
 <script>
   import gameState from '$lib/ui/store'
-  import {getCurrentRound, revealAnswer, scoreAnswer} from '$lib/gameState'
+  import {canRevealAnswer, getCurrentRound, revealAnswer, scoreAnswer} from '$lib/gameState'
   const onClickReveal = (answerId) => {
     $gameState = revealAnswer($gameState, answerId)
   }
   $: currentRound = getCurrentRound($gameState)
+
+  const canReveal = (answerId) => canRevealAnswer($gameState, answerId)[0]
 </script>
 
 <div class="board">
-  <h2 class="round-title">Round {$gameState.currentRoundNumber}</h2>
-  <p>Type: {currentRound.type}</p>
+  <h2 class="round-title">Round {$gameState.currentRoundNumber} / {$gameState.gameData.rounds.length}</h2>
   <h3 class="question-text">{currentRound.question.text}</h3>
   <table class="answers">
     <thead>
@@ -27,14 +28,15 @@
         <td class="answer-resp answer-secret">{answer.respondentCount}</td>
         <td class="answer-score answer-secret">{scoreAnswer(currentRound, answer.id)}</td>
         <td class="answer-action">
-          {#if !$gameState.revealedAnswers.includes(answer.id)}
-            <button on:click={() => onClickReveal(answer.id)}>Reveal</button>
-          {/if}
+          <button on:click={() => onClickReveal(answer.id)} disabled={!canReveal(answer.id)}>Reveal</button>
         </td>
       </tr>
     {/each}
     </thead>
   </table>
+  <p class="round-type">
+    {currentRound.type}
+  </p>
   <p class="round-points">
     Score: {$gameState.currentRoundScore}
   </p>
@@ -44,24 +46,51 @@
 
   .board {
     border: 3px solid var(--text-color);
-    padding: var(--margin-m);
   }
 
-  .board th {
-    background: var(--text-color);
+  .round-title {
     color: var(--background-color);
-    font-weight: bold;
+    background: var(--text-color);
+    margin: 0;
+    padding: var(--margin-s);
+    font-size: var(--font-size-m);
+  }
+
+  .question-text {
+    font-size: var(--font-size-xl);
+    padding: var(--margin-s);
   }
 
   .answers {
     width: 100%;
+    border-spacing: 0;
   }
 
-  .answers td:nth-child(1), .answers td:nth-child(2) {
+  .answers td, .answers th {
+    border: 0;
+  }
+
+  .answers thead th {
+    border-bottom: 3px solid var(--text-color);
+  }
+
+  .answers th {
+    font-weight: bold;
+  }
+
+  .answers tr > *:nth-child(1) {
+    padding-left: var(--margin-m);
+  }
+
+  .answers tr > *:last-child {
+    padding-right: var(--margin-m);
+  }
+
+  .answers tr > *:nth-child(1), .answers tr > *:nth-child(2) {
     text-align: left;
   }
 
-  .answers td:nth-child(3), .answers td:nth-child(4) {
+  .answers tr > *:nth-child(3), .answers tr > *:nth-child(4) {
     text-align: right;
   }
 
@@ -77,6 +106,7 @@
     --padding: var(--margin-xs);
     padding: var(--padding);
     height: 2em;
+    font-size: var(--font-size-m);
   }
 
   .answer.hidden td {
@@ -85,12 +115,28 @@
 
   .answer.hidden td.answer-secret:before {
     content: '???';
+    color: rgba(var(--text-color), 0.3);
     position: absolute;
     top: 50%;
     right: var(--padding);
     left: var(--padding);
     transform: translateY(-50%);
     background-color: inherit;
+  }
+
+  .answer.hidden td.answer-secret:after {
+    position: absolute;
+    content: '';
+    top: 0;
+    right: var(--padding);
+    left: var(--padding);
+    bottom: 0;
+    background-color: inherit;
+    opacity: 0.7;
+  }
+
+  .answer-text {
+    font-weight: bold;
   }
 
   .answer-action {
