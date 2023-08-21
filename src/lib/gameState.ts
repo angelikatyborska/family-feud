@@ -66,6 +66,86 @@ export function createGame(): GameState {
               { id: 6, text: 'PHP', respondentCount: 6 }
             ]
           }
+        },
+        {
+          number: 2,
+          type: 'normal',
+          question: {
+            id: 'who-teaches-frontend',
+            text: 'Name someone (org or person) who helps many people learn HTML, CSS, and/or JS.',
+            answers: [
+              { id: 1, text: 'Wes Bos', respondentCount: 49 },
+              { id: 2, text: 'Chris Coyier', respondentCount: 13 },
+              { id: 3, text: 'JS Party', respondentCount: 7 },
+              { id: 4, text: 'FreeCodeCamp', respondentCount: 6 },
+              { id: 5, text: 'Brad Traversy', respondentCount: 5 }
+            ]
+          }
+        },
+        {
+          number: 3,
+          type: 'inverted',
+          question: {
+            id: 'commit-emoji',
+            text: 'Which emoji do you use most often in commit messages?',
+            answers: [
+              { id: 1, text: 'None', respondentCount: 42 },
+              { id: 2, text: 'Smiles 😄 😅 😎 😊 😇', respondentCount: 19 },
+              { id: 3, text: 'Poop 💩', respondentCount: 9 },
+              { id: 4, text: 'Shrugs 🤷‍♀️ 🤷 🤷‍♂️', respondentCount: 8 },
+              { id: 5, text: 'Rocket 🚀', respondentCount: 8 },
+              { id: 6, text: 'Celebrations 🎉 🥳 🎊 🙌', respondentCount: 7 },
+              { id: 7, text: 'Thumbs up 👍', respondentCount: 6 }
+            ]
+          }
+        },
+        {
+          number: 4,
+          type: 'normal',
+          question: {
+            id: 'website-frequented-by-devs',
+            text: 'Name a website frequented by software developers.',
+            answers: [
+              { id: 1, text: 'Stack Overflow', respondentCount: 65 },
+              { id: 2, text: 'MDN', respondentCount: 22 },
+              { id: 3, text: 'GitHub', respondentCount: 12 },
+              { id: 4, text: 'Hacker News', respondentCount: 9 },
+              { id: 5, text: 'Google', respondentCount: 8 },
+              { id: 6, text: 'Twitter', respondentCount: 5 }
+            ]
+          }
+        },
+        {
+          number: 5,
+          type: 'normal',
+          question: {
+            id: 'place-work-outside',
+            text: 'Name a place (outside your house) where you like to code/work.',
+            answers: [
+              { id: 1, text: 'Coffee shop / cafe', respondentCount: 38 },
+              { id: 2, text: 'Park / garden / yard', respondentCount: 26 },
+              { id: 3, text: 'The office', respondentCount: 21 },
+              { id: 4, text: 'The library', respondentCount: 14 },
+              { id: 5, text: 'The bar / pub', respondentCount: 6 },
+              { id: 6, text: 'Nowhere / don\'t heave the house', respondentCount: 5 }
+            ]
+          }
+        },
+        {
+          number: 6,
+          type: 'double',
+          question: {
+            id: 'project-idea-what-do',
+            text: 'What\'s the first thing you do when you think of a new project idea?',
+            answers: [
+              { id: 1, text: 'Write down / add to list', respondentCount: 36 },
+              { id: 2, text: 'Research / plan / brainstorm', respondentCount: 31 },
+              { id: 3, text: 'Start / git repo / code', respondentCount: 24 },
+              { id: 4, text: 'Name it / buy domain', respondentCount: 17 },
+              { id: 5, text: 'Draw / whiteboard / prototype', respondentCount: 14 },
+              { id: 6, text: 'Tell someone', respondentCount: 10 }
+            ]
+          }
         }
       ]
     }
@@ -114,7 +194,14 @@ export function canRevealAnswer(gameState: GameState, answerId: AnswerId): [bool
   return [true, undefined];
 }
 
+
+// TODO: add undo and redo
+
+// TODO: save in database
+
 // TODO: reveal answer without awarding points
+
+// TODO: don't allow awarding points for the last round twice
 
 export function revealAnswer(gameState: GameState, answerId: AnswerId): GameState {
   const [canReveal, reason] = canRevealAnswer(gameState, answerId);
@@ -205,6 +292,8 @@ export function finalizeRound(gameState: GameState, awardPointsTo: TeamNumber): 
     } else {
       return {
         ...gameState,
+        team1: {...gameState.team1, misses: 0},
+        team2: {...gameState.team2, misses: 0},
         currentRoundScore: 0,
         revealedAnswers: [],
         currentRoundNumber: gameState.currentRoundNumber + 1
