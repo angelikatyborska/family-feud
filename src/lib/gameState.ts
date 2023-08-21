@@ -201,8 +201,6 @@ export function canRevealAnswer(gameState: GameState, answerId: AnswerId): [bool
 
 // TODO: reveal answer without awarding points
 
-// TODO: don't allow awarding points for the last round twice
-
 export function revealAnswer(gameState: GameState, answerId: AnswerId): GameState {
   const [canReveal, reason] = canRevealAnswer(gameState, answerId);
 
@@ -285,6 +283,8 @@ export function finalizeRound(gameState: GameState, awardPointsTo: TeamNumber): 
         }
       };
     }
+
+    gameState = {...gameState, currentRoundScore: 0}
 
     if ( gameState.currentRoundNumber == gameState.gameData.rounds.length ) {
       // game over
