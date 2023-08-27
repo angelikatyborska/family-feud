@@ -197,9 +197,9 @@ export function canRevealAnswer(gameState: GameState, answerId: AnswerId): [bool
 
 // TODO: add undo and redo
 
-// TODO: save in database
-
 // TODO: reveal answer without awarding points
+
+// TODO: add reset game state
 
 export function revealAnswer(gameState: GameState, answerId: AnswerId): GameState {
   const [canReveal, reason] = canRevealAnswer(gameState, answerId);
