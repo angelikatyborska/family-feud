@@ -4,6 +4,7 @@ import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 
 import { createGame } from "$lib/gameState";
+import * as gameStateHistory from "$lib/gameStateHistory";
 const initialGameState = createGame()
 
 const createSynchronizedStore = async <T>(key: string, defaultValue: T): Promise<Writable<{} | T>> => {
@@ -12,8 +13,10 @@ const createSynchronizedStore = async <T>(key: string, defaultValue: T): Promise
   }
 
   const previouslySavedValue = await localForage.getItem(key)
+  const initialValue = previouslySavedValue || defaultValue
 
-  const store = writable(previouslySavedValue || defaultValue);
+  const store = writable(initialValue);
+  gameStateHistory.push(initialValue)
 
   store.subscribe(async (val) => {
     await localForage.setItem(key, val)
@@ -29,7 +32,14 @@ const createSynchronizedStore = async <T>(key: string, defaultValue: T): Promise
     }
   });
 
-  return store;
+  console.log(gameStateHistory)
+
+  const set = (value: T) => {
+    store.set(value)
+    gameStateHistory.push(value)
+}
+
+  return { ...store, set: set }
 }
 
 const gameStateStore = await createSynchronizedStore('familyFeudGameState', initialGameState)

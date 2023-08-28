@@ -5,10 +5,19 @@
 
   import type { PageData } from './$types';
   import { createGame } from "$lib/gameState";
+  import * as gameStateHistory from "$lib/gameStateHistory";
 
   const onClickReset = () => {
     if (window.confirm("Are you sure you want to reset the game?")) {
       $gameState = createGame()
+    }
+  }
+
+  const onClickUndo = () => {
+    const previousState = gameStateHistory.pop()
+    if (previousState) {
+      console.log('previousState', previousState.currentRoundScore)
+      $gameState = previousState
     }
   }
 
@@ -28,6 +37,7 @@
   {#if data.isAdmin}
     <div class="game-actions">
       <button on:click={onClickReset}>Reset</button>
+      <button on:click={onClickUndo}>Undo</button>
     </div>
   {/if}
 </div>

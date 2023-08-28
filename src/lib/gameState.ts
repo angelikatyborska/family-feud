@@ -194,9 +194,6 @@ export function canRevealAnswer(gameState: GameState, answerId: AnswerId): [bool
   return [true, undefined];
 }
 
-
-// TODO: add undo and redo
-
 export function revealAnswer(gameState: GameState, answerId: AnswerId, withPoints: boolean): GameState {
   const [canReveal, reason] = canRevealAnswer(gameState, answerId);
 
