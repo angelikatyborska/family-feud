@@ -17,17 +17,17 @@ const createSynchronizedStore = async <T>(key: string, defaultValue: T): Promise
 
   store.subscribe(async (val) => {
     await localForage.setItem(key, val)
+    localStorage.setItem(key + 'UpdatedAt', (new Date()).toString())
   })
 
-  // TODO: figure out how to synchronize two tabs
-
-  // window.addEventListener('storage', () => {
-  //   const storedValueStr = localStorage.getItem(key);
-  //   if (storedValueStr == null) return;
-  //
-  //   const localValue: T = JSON.parse(storedValueStr)
-  //   if (localValue !== get(store)) store.set(localValue);
-  // });
+  window.addEventListener('storage', async (event) => {
+    if (event.key === key + 'UpdatedAt') {
+      const currentValue: T | null = await localForage.getItem(key)
+      if (currentValue) {
+        store.set(currentValue)
+      }
+    }
+  });
 
   return store;
 }

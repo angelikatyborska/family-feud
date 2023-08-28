@@ -153,7 +153,7 @@
     font-weight: bold;
   }
 
-  .answer-actionss {
+  .answer-actions {
     display: flex;
     gap: var(--margin-s);
   }
