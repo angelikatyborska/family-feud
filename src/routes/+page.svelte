@@ -4,6 +4,13 @@
   import Board from '$lib/ui/board.svelte'
 
   import type { PageData } from './$types';
+  import { createGame } from "$lib/gameState";
+
+  const onClickReset = () => {
+    if (window.confirm("Are you sure you want to reset the game?")) {
+      $gameState = createGame()
+    }
+  }
 
   export let data: PageData;
 </script>
@@ -18,13 +25,12 @@
     <Board isAdmin={data.isAdmin} />
     <Team team={$gameState.team2} isAdmin={data.isAdmin} />
   </div>
+  {#if data.isAdmin}
+    <div class="game-actions">
+      <button on:click={onClickReset}>Reset</button>
+    </div>
+  {/if}
 </div>
-<h2>Debug output</h2>
-<code>
-<pre>
-{JSON.stringify($gameState, null, 2)}
-</pre>
-</code>
 
 <style>
   .page {
