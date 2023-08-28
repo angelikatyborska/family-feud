@@ -2,17 +2,21 @@
   import gameState from '$lib/ui/store'
   import Team from '$lib/ui/team.svelte'
   import Board from '$lib/ui/board.svelte'
+
+  import type { PageData } from './$types';
+
+  export let data: PageData;
 </script>
 
 <div class="page">
   <header>
-  <h1>Frontend Feud*</h1>
-  <p>* Stolen from the JS Party podcast</p>
+    <h1>Frontend Feud*</h1>
+    <p>* Stolen from the JS Party podcast</p>
   </header>
   <div class="game">
-    <Team team={$gameState.team1} />
-    <Board />
-    <Team team={$gameState.team2} />
+    <Team team={$gameState.team1} isAdmin={data.isAdmin} />
+    <Board isAdmin={data.isAdmin} />
+    <Team team={$gameState.team2} isAdmin={data.isAdmin} />
   </div>
 </div>
 <h2>Debug output</h2>

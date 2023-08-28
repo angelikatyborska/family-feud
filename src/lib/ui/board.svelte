@@ -1,4 +1,5 @@
 <script>
+  export let isAdmin
   import gameState from '$lib/ui/store'
   import {canRevealAnswer, getCurrentRound, revealAnswer, scoreAnswer} from '$lib/gameState'
   const onClickReveal = (answerId) => {
@@ -9,7 +10,7 @@
   const canReveal = (answerId) => canRevealAnswer($gameState, answerId)[0]
 </script>
 
-<div class="board">
+<div class="board" data-is-admin={isAdmin}>
   <h2 class="round-title">Round {$gameState.currentRoundNumber} / {$gameState.gameData.rounds.length}</h2>
   <h3 class="question-text">{currentRound.question.text}</h3>
   <table class="answers">
@@ -19,7 +20,9 @@
       <th>Answer</th>
       <th>Resp.</th>
       <th>Points</th>
-      <th></th>
+      {#if isAdmin}
+        <th></th>
+      {/if}
     </tr>
     {#each currentRound.question.answers as answer}
       <tr class:answer={true} class:hidden={!$gameState.revealedAnswers.includes(answer.id)}>
@@ -27,9 +30,11 @@
         <td class="answer-text answer-secret">{answer.text}</td>
         <td class="answer-resp answer-secret">{answer.respondentCount}</td>
         <td class="answer-score answer-secret">{scoreAnswer(currentRound, answer.id)}</td>
-        <td class="answer-action">
-          <button on:click={() => onClickReveal(answer.id)} disabled={!canReveal(answer.id)}>Reveal</button>
-        </td>
+        {#if isAdmin}
+          <td class="answer-action">
+            <button on:click={() => onClickReveal(answer.id)} disabled={!canReveal(answer.id)}>Reveal</button>
+          </td>
+        {/if}
       </tr>
     {/each}
     </thead>
@@ -137,6 +142,10 @@
     bottom: 0;
     background-color: inherit;
     opacity: 0.7;
+  }
+
+  [data-is-admin="true"] .answer.hidden td.answer-secret:before {
+    display: none;
   }
 
   .answer-text {

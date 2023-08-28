@@ -1,5 +1,6 @@
 <script>
   export let team
+  export let isAdmin
   import gameState from '$lib/ui/store.ts';
   import {addMiss, canAddMiss, canFinalizeRound, finalizeRound} from '$lib/gameState'
 
@@ -38,8 +39,10 @@
     {/each}
   </div>
   <div class="team-actions">
-    <button on:click={onRecordMissClick} disabled={!canRecordMiss}>Record Miss</button>
-    <button on:click={onAwardRoundClick} disabled={!canAwardRound}>Award Round</button>
+    {#if isAdmin}
+      <button on:click={onRecordMissClick} disabled={!canRecordMiss}>Record Miss</button>
+      <button on:click={onAwardRoundClick} disabled={!canAwardRound}>Award Round</button>
+    {/if}
   </div>
 </div>
 
