@@ -2,8 +2,8 @@
   export let isAdmin
   import gameState from '$lib/ui/store'
   import {canRevealAnswer, getCurrentRound, revealAnswer, scoreAnswer} from '$lib/gameState'
-  const onClickReveal = (answerId) => {
-    $gameState = revealAnswer($gameState, answerId)
+  const onClickReveal = (answerId, withPoints) => {
+    $gameState = revealAnswer($gameState, answerId, withPoints)
   }
   $: currentRound = getCurrentRound($gameState)
 
@@ -31,7 +31,8 @@
         <td class="answer-resp answer-secret">{answer.respondentCount}</td>
         <td class="answer-score answer-secret">{scoreAnswer(currentRound, answer.id)}</td>
         {#if isAdmin}
-          <td class="answer-action">
+          <td class="answer-actions">
+            <button on:click={() => onClickReveal(answer.id, true)} disabled={!canReveal(answer.id)}>Award Points</button>
             <button on:click={() => onClickReveal(answer.id)} disabled={!canReveal(answer.id)}>Reveal</button>
           </td>
         {/if}
@@ -152,8 +153,9 @@
     font-weight: bold;
   }
 
-  .answer-action {
-    width: 4em;
+  .answer-actionss {
+    display: flex;
+    gap: var(--margin-s);
   }
 
   footer {

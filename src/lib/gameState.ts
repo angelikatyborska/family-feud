@@ -197,11 +197,7 @@ export function canRevealAnswer(gameState: GameState, answerId: AnswerId): [bool
 
 // TODO: add undo and redo
 
-// TODO: reveal answer without awarding points
-
-// TODO: add reset game state
-
-export function revealAnswer(gameState: GameState, answerId: AnswerId): GameState {
+export function revealAnswer(gameState: GameState, answerId: AnswerId, withPoints: boolean): GameState {
   const [canReveal, reason] = canRevealAnswer(gameState, answerId);
 
   if (canReveal) {
@@ -210,7 +206,7 @@ export function revealAnswer(gameState: GameState, answerId: AnswerId): GameStat
     return {
       ...gameState,
       revealedAnswers: [...gameState.revealedAnswers, answerId],
-      currentRoundScore: gameState.currentRoundScore + scoreAnswer(currentRound, answerId)
+      currentRoundScore: gameState.currentRoundScore + (withPoints ? scoreAnswer(currentRound, answerId) : 0)
     };
   } else {
     throw reason;
