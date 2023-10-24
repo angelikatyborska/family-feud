@@ -26,22 +26,24 @@
     --margin-s: 0.5rem;
     --margin-xs: 0.25rem;
 
-    --bistre: #432818ff;
-    --barn-red: #780000ff;
-    --fire-brick: #c1121fff;
-    --papaya-whip: #fdf0d5ff;
-    --papaya-whip-darker: #f4e2beff;
     --prussian-blue: #003049ff;
     --air-superiority-blue: #669bbcff;
+    --white: #ffffffff;
+    --white-darker: #eeeeeeff;
+    --hunter-green: #386641ff;
+    --asparagus: #6a994eff;
+    --yellow-green: #a7c957ff;
+    --persian-red: #c44536ff;
+    --burnt-umber: #772e25ff;
 
-    --team-1-dark: var(--barn-red);
-    --team-1-light: var(--fire-brick);
-    --team-2-dark: var(--prussian-blue);
-    --team-2-light: var(--air-superiority-blue);
+    --team-1-dark: var(--hunter-green);
+    --team-1-light: var(--asparagus);
+    --team-2-dark: var(--burnt-umber);
+    --team-2-light: var(--persian-red);
 
-    --text-color: var(--bistre);
-    --background-color: var(--papaya-whip);
-    --background-color2: var(--papaya-whip-darker);
+    --text-color: var(--prussian-blue);
+    --background-color: var(--white);
+    --background-color2: var(--white-darker);
 
     margin: 0;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;

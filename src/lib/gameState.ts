@@ -27,7 +27,7 @@ export function createGame(): GameState {
   return {
     team1: {
       number: 1,
-      name: 'Magenta Mongoose',
+      name: 'Fierce Frogs',
       members: [
         james,
         luisa
@@ -37,14 +37,14 @@ export function createGame(): GameState {
     },
     team2: {
       number: 2,
-      name: 'Sapphire Spider',
+      name: 'Tough Toads',
       members: [
         michal,
         jeremie,
         claudine
       ],
-      points: 315,
-      misses: 2
+      points: 0,
+      misses: 0
     },
     currentRoundNumber: 1,
     currentRoundScore: 0,
