@@ -56,7 +56,7 @@ export function createGame(): GameState {
           type: 'normal',
           question: {
             id: 'fav-prog-lang',
-            text: 'Name your favorite programming languge that is not HTML, CSS, or JS.',
+            text: 'Name your favorite programming language that is not HTML, CSS, or JS.',
             answers: [
               { id: 1, text: 'Python', respondentCount: 33 },
               { id: 2, text: 'Typescript', respondentCount: 20 },
@@ -67,23 +67,23 @@ export function createGame(): GameState {
             ]
           }
         },
+        // {
+        //   number: 2,
+        //   type: 'normal',
+        //   question: {
+        //     id: 'who-teaches-frontend',
+        //     text: 'Name someone (org or person) who helps many people learn HTML, CSS, and/or JS.',
+        //     answers: [
+        //       { id: 1, text: 'Wes Bos', respondentCount: 49 },
+        //       { id: 2, text: 'Chris Coyier', respondentCount: 13 },
+        //       { id: 3, text: 'JS Party', respondentCount: 7 },
+        //       { id: 4, text: 'FreeCodeCamp', respondentCount: 6 },
+        //       { id: 5, text: 'Brad Traversy', respondentCount: 5 }
+        //     ]
+        //   }
+        // },
         {
           number: 2,
-          type: 'normal',
-          question: {
-            id: 'who-teaches-frontend',
-            text: 'Name someone (org or person) who helps many people learn HTML, CSS, and/or JS.',
-            answers: [
-              { id: 1, text: 'Wes Bos', respondentCount: 49 },
-              { id: 2, text: 'Chris Coyier', respondentCount: 13 },
-              { id: 3, text: 'JS Party', respondentCount: 7 },
-              { id: 4, text: 'FreeCodeCamp', respondentCount: 6 },
-              { id: 5, text: 'Brad Traversy', respondentCount: 5 }
-            ]
-          }
-        },
-        {
-          number: 3,
           type: 'inverted',
           question: {
             id: 'commit-emoji',
@@ -100,7 +100,7 @@ export function createGame(): GameState {
           }
         },
         {
-          number: 4,
+          number: 3,
           type: 'normal',
           question: {
             id: 'website-frequented-by-devs',
@@ -116,7 +116,7 @@ export function createGame(): GameState {
           }
         },
         {
-          number: 5,
+          number: 4,
           type: 'normal',
           question: {
             id: 'place-work-outside',
@@ -127,12 +127,12 @@ export function createGame(): GameState {
               { id: 3, text: 'The office', respondentCount: 21 },
               { id: 4, text: 'The library', respondentCount: 14 },
               { id: 5, text: 'The bar / pub', respondentCount: 6 },
-              { id: 6, text: 'Nowhere / don\'t heave the house', respondentCount: 5 }
+              { id: 6, text: 'Nowhere / don\'t leave the house', respondentCount: 5 }
             ]
           }
         },
         {
-          number: 6,
+          number: 5,
           type: 'double',
           question: {
             id: 'project-idea-what-do',

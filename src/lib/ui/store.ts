@@ -32,8 +32,6 @@ const createSynchronizedStore = async <T>(key: string, defaultValue: T): Promise
     }
   });
 
-  console.log(gameStateHistory)
-
   const set = (value: T) => {
     store.set(value)
     gameStateHistory.push(value)
