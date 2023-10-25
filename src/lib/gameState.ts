@@ -3,11 +3,7 @@ import type { GameData } from '$lib/gameData';
 import type { Round, RoundNumber } from '$lib/gameData/round';
 import type { AnswerId } from '$lib/gameData/answer';
 
-import michalImage from '$lib/ui/assets/michal.png'
-import luisaImage from '$lib/ui/assets/luisa.jpg'
-import jamesImage from '$lib/ui/assets/james.png'
-import claudineImage from '$lib/ui/assets/claudine.jpg'
-import jeremieImage from '$lib/ui/assets/jeremie.jpg'
+import photoPlaceholder from '$lib/ui/assets/photo-placeholder.png'
 
 export interface GameState {
   team1: Team;
@@ -19,11 +15,11 @@ export interface GameState {
 }
 
 export function createGame(): GameState {
-  const michal = {name: 'Michał', image: michalImage}
-  const luisa = {name: 'Luisa', image: luisaImage}
-  const james = {name: 'James', image: jamesImage}
-  const claudine = {name: 'Claudine', image: claudineImage}
-  const jeremie = {name: 'Jeremie', image: jeremieImage}
+  const michal = {name: 'Michał', image: photoPlaceholder}
+  const luisa = {name: 'Luisa', image: photoPlaceholder}
+  const james = {name: 'James', image: photoPlaceholder}
+  const claudine = {name: 'Claudine', image: photoPlaceholder}
+  const jeremie = {name: 'Jeremie', image: photoPlaceholder}
   return {
     team1: {
       number: 1,
@@ -67,23 +63,23 @@ export function createGame(): GameState {
             ]
           }
         },
-        // {
-        //   number: 2,
-        //   type: 'normal',
-        //   question: {
-        //     id: 'who-teaches-frontend',
-        //     text: 'Name someone (org or person) who helps many people learn HTML, CSS, and/or JS.',
-        //     answers: [
-        //       { id: 1, text: 'Wes Bos', respondentCount: 49 },
-        //       { id: 2, text: 'Chris Coyier', respondentCount: 13 },
-        //       { id: 3, text: 'JS Party', respondentCount: 7 },
-        //       { id: 4, text: 'FreeCodeCamp', respondentCount: 6 },
-        //       { id: 5, text: 'Brad Traversy', respondentCount: 5 }
-        //     ]
-        //   }
-        // },
         {
           number: 2,
+          type: 'normal',
+          question: {
+            id: 'who-teaches-frontend',
+            text: 'Name someone (org or person) who helps many people learn HTML, CSS, and/or JS.',
+            answers: [
+              { id: 1, text: 'Wes Bos', respondentCount: 49 },
+              { id: 2, text: 'Chris Coyier', respondentCount: 13 },
+              { id: 3, text: 'JS Party', respondentCount: 7 },
+              { id: 4, text: 'FreeCodeCamp', respondentCount: 6 },
+              { id: 5, text: 'Brad Traversy', respondentCount: 5 }
+            ]
+          }
+        },
+        {
+          number: 3,
           type: 'inverted',
           question: {
             id: 'commit-emoji',
@@ -100,7 +96,7 @@ export function createGame(): GameState {
           }
         },
         {
-          number: 3,
+          number: 4,
           type: 'normal',
           question: {
             id: 'website-frequented-by-devs',
@@ -116,7 +112,7 @@ export function createGame(): GameState {
           }
         },
         {
-          number: 4,
+          number: 5,
           type: 'normal',
           question: {
             id: 'place-work-outside',
@@ -132,7 +128,7 @@ export function createGame(): GameState {
           }
         },
         {
-          number: 5,
+          number: 6,
           type: 'double',
           question: {
             id: 'project-idea-what-do',
