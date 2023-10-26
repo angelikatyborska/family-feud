@@ -20,3 +20,5 @@ I don't expect anyone else to use this app. It was written just for me and the s
     ```
 5. Open one window with the players view (root path), and another with the host view (appending `?p=` and the password to the URL).
 6. Reset the game state from the host view to see new game state (game state is persisted in indexDB so you don't lose it if you close the browser).
+
+It only works if both windows (players view and host view) are running on the same domain, in the same browsers. They share state via IndexDB.
